@@ -114,7 +114,7 @@ namespace DIO.Series.Classes
             }
 			Console.WriteLine();
 			Console.WriteLine("-------------------------------------");
-			Console.WriteLine($"DIO Menu - {tipo} !!!");
+			Console.WriteLine($"DIO Menu - {tipo}");
 			Console.WriteLine("Informe a opção desejada:");
 			Console.WriteLine($"1- Listar {tipo}");
 			Console.WriteLine($"2- Inserir {tipo}");
