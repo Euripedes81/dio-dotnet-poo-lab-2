@@ -207,7 +207,7 @@ namespace DIO.Series
 			}
 
 			Console.Write($"Digite o id - {tipo}: ");
-			int indiceSerie = int.Parse(Console.ReadLine());
+			int indiceSerie = GetNumeroInteiro();
 			Console.WriteLine($"Inserir nova {tipo}");
 			Menu.ListaGenero();
 
@@ -239,7 +239,7 @@ namespace DIO.Series
 											   ano: entradaAno,
 											   descricao: entradaDescricao);
 
-				filmeRepositorio.Insere(atualizaFilme);
+				filmeRepositorio.Atualiza(indiceSerie,atualizaFilme);
 			}            
         }  		
 		
