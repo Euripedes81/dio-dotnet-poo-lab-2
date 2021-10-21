@@ -50,5 +50,9 @@ namespace DIO.Series.Classes
 		{
 			this.Excluido = true;
 		}
+		public Enum RetornaGenero()
+		{
+			return this.Genero;
+		}
 	}
 }

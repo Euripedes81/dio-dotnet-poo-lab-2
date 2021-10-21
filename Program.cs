@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 namespace DIO.Series
 {
-    class Program
+	class Program
     {
         static SerieRepositorio serieRepositorio = new SerieRepositorio();
 		static FilmeRepositorio filmeRepositorio = new FilmeRepositorio();
@@ -15,11 +15,20 @@ namespace DIO.Series
 			{   
 				if(opcaoMenuPrincipal != "1" && opcaoMenuPrincipal != "2" && opcaoMenuPrincipal.ToUpper() != "X")
                 {
-                    Console.Clear();
-					InformarMsg();
-					opcaoMenuPrincipal = Menu.MenuPrincipal();
-					continue;
+                    if (opcaoMenuPrincipal.ToUpper() == "C")
+                    {
+						Console.Clear();
+						opcaoMenuPrincipal = Menu.MenuPrincipal();
+                        continue;
+                    }
+                    else
+                    {
+						InformarMsg();						
+						opcaoMenuPrincipal = Menu.MenuPrincipal();
+						continue;
+					}
 				}
+				Console.Clear();
                 string opcaoUsuario = Menu.ObterOpcaoUsuario(opcaoMenuPrincipal);
 
                 while (opcaoUsuario.ToUpper() != "X" && opcaoUsuario.ToUpper() != "V")
@@ -47,12 +56,15 @@ namespace DIO.Series
                             break;
                         case "5":
                             Visualizar();
-                            break;						
+                            break;
+						case "6":
+							ListarPorGenero();
+							break;
                         case "C":
                             Console.Clear();
                             break;						
                         default:
-                            Console.WriteLine("Escolha um opção válida!");
+							InformarMsg();
 							break;
 							//throw new ArgumentOutOfRangeException();
                     }
@@ -63,8 +75,8 @@ namespace DIO.Series
                 if (opcaoUsuario == "X")
                 {
                     DespedirMsg();
-					break;
-                    Console.ReadLine();
+					Console.ReadLine();
+					break;                   
 				}else if(opcaoUsuario == "V")
                 {
 					Console.Clear();
@@ -74,8 +86,36 @@ namespace DIO.Series
 			DespedirMsg();
 		}
 
+        private static void ListarPorGenero()
+        {
+			string tipo;
+			if (opcaoMenuPrincipal == "1")
+			{
+				tipo = "Série";
+			}
+			else
+			{
+				tipo = "Filme";
+			}
+			Console.WriteLine("--------------------");
+			Console.WriteLine($"Escolha o gênero - {tipo}");
+			Menu.ListaGenero();
+
+			int entradaGenero = GetNumeroInteiro();
+
+            if (opcaoMenuPrincipal == "1")
+            {
+                Menu.ListarPorGenero(serieRepositorio, entradaGenero);
+            }
+			else
+            {
+				Menu.ListarPorGenero(filmeRepositorio, entradaGenero);
+			}
+		}
+
         private static void Excluir()
 		{
+			Console.WriteLine("--------------------");
 			Console.Write("Digite o id: ");
 			int indice = int.Parse(Console.ReadLine());
 
@@ -91,6 +131,7 @@ namespace DIO.Series
 
         private static void Visualizar()
 		{
+			Console.WriteLine("--------------------");
 			Console.Write("Digite o id : ");
 			int indice = int.Parse(Console.ReadLine());
 
@@ -118,18 +159,18 @@ namespace DIO.Series
             {
 				tipo = "Filme";
             }
-			Console.WriteLine($"Inserir nova {tipo}");
+			Console.WriteLine($"Inserir - {tipo}");
 			Menu.ListaGenero();
 
 			int entradaGenero = GetNumeroInteiro();
 
-			Console.Write($"Digite o Título da {tipo}: ");
+			Console.Write($"Digite o Título - {tipo}: ");
 			string entradaTitulo = Console.ReadLine();
 
-			Console.Write($"Digite o Ano de Início da {tipo}: ");
+			Console.Write($"Digite o Ano - {tipo}: ");
 			int entradaAno = GetNumeroInteiro();
 
-			Console.Write($"Digite a Descrição da {tipo}: ");
+			Console.Write($"Digite a Descrição - {tipo}: ");
 			string entradaDescricao = Console.ReadLine();
 
             if (opcaoMenuPrincipal == "1")
@@ -154,10 +195,7 @@ namespace DIO.Series
 			}
 		}
 		private static void Atualizar()
-		{		
-
-			// https://docs.microsoft.com/pt-br/dotnet/api/system.enum.getvalues?view=netcore-3.1
-			// https://docs.microsoft.com/pt-br/dotnet/api/system.enum.getname?view=netcore-3.1
+		{			
 			string tipo;
 			if (opcaoMenuPrincipal == "1")
 			{
@@ -168,20 +206,20 @@ namespace DIO.Series
 				tipo = "Filme";
 			}
 
-			Console.Write($"Digite o id da {tipo}: ");
+			Console.Write($"Digite o id - {tipo}: ");
 			int indiceSerie = int.Parse(Console.ReadLine());
 			Console.WriteLine($"Inserir nova {tipo}");
 			Menu.ListaGenero();
 
 			int entradaGenero = GetNumeroInteiro();
 
-			Console.Write($"Digite o Título da {tipo}: ");
+			Console.Write($"Digite o Título - {tipo}: ");
 			string entradaTitulo = Console.ReadLine();
 
-			Console.Write($"Digite o Ano de Início da {tipo}: ");
+			Console.Write($"Digite o Ano de Início - {tipo}: ");
 			int entradaAno = GetNumeroInteiro();
 
-			Console.Write($"Digite a Descrição da {tipo}: ");
+			Console.Write($"Digite a Descrição - {tipo}: ");
 			string entradaDescricao = Console.ReadLine();
 			if (tipo == "1")
 			{
@@ -202,13 +240,11 @@ namespace DIO.Series
 											   descricao: entradaDescricao);
 
 				filmeRepositorio.Insere(atualizaFilme);
-			}
-            
+			}            
         }  		
 		
-		//Valida se a entrada de dados é um número	
 		private static int GetNumeroInteiro()
-		{   
+		{   //Valida se a entrada de dados é um número	
 			do
 			{
 				string entradaTeclado = Console.ReadLine();
@@ -231,7 +267,7 @@ namespace DIO.Series
 		}
 		private static void InformarMsg()
         {
-			Console.WriteLine("Digite uma opção válida!");
+			Console.WriteLine("Digite uma opção válida!" + Environment.NewLine);
 		}
     }
 }

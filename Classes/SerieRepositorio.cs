@@ -36,5 +36,20 @@ namespace DIO.Series
 		{
 			return listaSerie[id];
 		}
+		public List<Serie> ListaSerieGenero(int idCategoria)
+        {   
+			//Lista série por categoria
+
+			List<Serie> seriesPorCategoria = new List<Serie>();
+			Genero genero = (Genero)idCategoria;
+			foreach(var serie in listaSerie)
+            {
+				if(Enum.Equals(serie.RetornaGenero(), genero))
+                {
+					seriesPorCategoria.Add(serie);
+                }
+            }
+			return seriesPorCategoria;
+		}
 	}
 }

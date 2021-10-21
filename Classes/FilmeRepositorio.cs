@@ -37,5 +37,20 @@ namespace DIO.Series.Classes
         {
             return listaFilme[id];
         }
+        public List<Filme> ListaFilmeGenero(int idCategoria)
+        {
+            //Lista filme por categoria
+
+            List<Filme> filmePorCategoria = new List<Filme>();
+            Genero genero = (Genero)idCategoria;
+            foreach (var filme in listaFilme)
+            {
+                if (Enum.Equals(filme.RetornaGenero(), genero))
+                {
+                    filmePorCategoria.Add(filme);
+                }
+            }
+            return filmePorCategoria;
+        }
     }
 }
